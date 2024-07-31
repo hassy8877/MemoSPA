@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>MemoManager</title>
+  <link rel="stylesheet" href="main.css?124011">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="main.js?12312211"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="header">
+      <h1>MEMO</h1>
+      <div class="searchArea">
+        <input class="searchBox" type="text" v-model="input" v-on:keydown.enter="searchMemosByName">
+        <i class="material-icons searchIcon" v-on:click="searchMemosByName">search</i>
+      </div>
+    </div>
+    <div class="contents">
+      <div class="sidebar">
+        <div class="sortOptions">
+          <label>
+            Sort by:
+            <select v-model="sortKey">
+              <option value="title">Title (A-Z)</option>
+              <option value="date">Date</option>
+              <option value="priority">Priority</option>
+            </select>
+          </label>
+        </div>
+        <ul>
+          <h2>Category</h2>
+          <li v-on:click="filterByCategory(all)">- All</li>
+          <li v-for="category in sortedCategories" :key="category" :class="{ active: selectedCategory === category }"
+            v-on:click="filterByCategory(category)">
+            - {{ category }}
+          </li>
+        </ul>
+      </div>
+      <div class="mainArea">
+        <div class="dispArea">
+          <div class="memo" v-for="memo in sortedMemos" v-bind:key="memo.id" v-on:click="openModal(memo)">
+            <img class="memoImage" v-bind:src="memo.image">
+            <h2>{{ memo.title }}</h2>
+            <p>{{ memo.priority }}<span v-html="getPriorityStars(memo.priority)"></span></p>
+            <p class="memoCategory" v-on:click.stop="filterByCategory(memo.category)"># {{ memo.category }}</p>
+            <p>{{ memo.date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="addButton" v-on:click="openModal(null)">
+      +
+    </div>
+    <!-- モーダル -->
+    <div class="modal" v-if="isModalVisible">
+      <div class="modal-content">
+        <span class="close" v-on:click="closeModal">&times;</span>
+        <div v-if="isAddingMemo">
+          <p>
+            Title: 
+            <input class="addMemoTitle" type="text" size="30" v-model="newMemo.title" required>
+          </p>
+          <p>
+            Category: 
+            <input class="addMemoCategory" type="text" size="30" v-model="newMemo.category" required>
+          </p>
+          <p>
+            Priority: 
+            <select class="addMemoPriority" v-model="newMemo.priority" required>
+              <option value="">Select Priority</option>
+              <option value="High">High</option>
+              <option value="Mid">Mid</option>
+              <option value="Low">Low</option>
+            </select>
+          </p>
+          <p>
+            Content:
+            <textarea class="addMemoContent" v-model="newMemo.content" required></textarea>
+          </p>
+          <p>
+            Image:
+            <input type="file" @change="handleImageUpload">
+          </p>
+          <button v-on:click="addMemo">Add</button>
+        </div>
+        <div v-else>
+          <h2>{{ selectedMemo.title }}</h2>
+          <img class="modalMemoImage" v-bind:src="selectedMemo.image" alt="memo image">
+          <p> {{ selectedMemo.priority }}<span v-html="getPriorityStars(selectedMemo.priority)"></span></p>
+          <p># {{ selectedMemo.category }}</p>
+          <p>{{ selectedMemo.content }}</p>
+          <p>{{ selectedMemo.date }}</p>
+          <button v-on:click="confirmDeleteMemo(selectedMemo)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+{
+  "memos": [
+    {
+      "id": 1,
+      "title": "Bicycle",
+      "category": "Vehicle",
+      "image": "images/bicycle.jpg",
+      "content": "今日、家の近くの自転車屋でかった自転車。",
+      "date": "2024-07-14",
+      "priority": "Mid"
+    },
+    {
+      "id": 2,
+      "title": "Motorcycle",
+      "category": "Vehicle",
+      "image": "images/motorcycle.jpg",
+      "content": "家の近くの公園で見たバイク。",
+      "date": "2024-07-12",
+      "priority": "Low"
+    },
+    {
+      "id": 3,
+      "title": "Cat",
+      "category": "Animal",
+      "image": "images/cat.jpg",
+      "content": "家で飼っている猫。",
+      "date": "2024-06-18",
+      "priority": "Mid"
+    },
+    {
+      "id": 4,
+      "title": "Ramen",
+      "category": "Food",
+      "image": "images/ramen.jpg",
+      "content": "大学帰りに食べた家系ラーメン。",
+      "date": "2024-06-15",
+      "priority": "Low"
+    },
+    {
+      "id": 5,
+      "title": "Homework",
+      "category": "Homework",
+      "image": "images/homework.jpg",
+      "content": "明日までの宿題の内容。",
+      "date": "2024-07-05",
+      "priority": "High"
+    }
+  ]
+}
